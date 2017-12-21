@@ -1,0 +1,6 @@
+
+class s {
+    draw(forged){
+
+    }
+}
