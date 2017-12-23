@@ -1,11 +1,13 @@
 import manufacturers from './Manufacturers'
-import draw from './game'
-console.log(manufacturers)
+import Draw from './game'
+
 
 const startGame = (()=> {
 
     const result = document.querySelector(".result")
     const cookie = document.querySelector(".cookie-ground__big-cookie")
+    const d = new Draw()
+    d.draw(manufacturers)
 
     const state = {
         productCookies: 2,
@@ -22,9 +24,8 @@ const startGame = (()=> {
     })
 
     setInterval(()=> {
-        state.count()
+       // state.count()
         result.innerHTML = state.cookies
     }, 1000)
-
 
 })()

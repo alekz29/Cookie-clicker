@@ -1,9 +1,24 @@
-import manufacturers from './Manufacturers'
+import manufacturers from "./Manufacturers";
 
-console.log(manufacturers)
+class Draw {
+    draw(x) {
+        const container = document.querySelector('.manufacturers')
 
-class s {
-    draw(forged){
+        let tpl = `<ul>`;
+        x.forEach((item) => {
+            tpl += `
+          <li>${item.name}</li>
+          `
+
+        })
+
+        tpl += `</ul>`;
+
+        console.log(tpl)
+
+        container.insertAdjacentHTML('afterbegin', tpl)
 
     }
 }
+
+export default Draw
