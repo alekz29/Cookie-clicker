@@ -1,5 +1,7 @@
 import manufacturers from './manufacturers'
 import Draw from './draw'
+import count from './count'
+
 
 
 const startGame = (() => {
@@ -13,9 +15,7 @@ const startGame = (() => {
         productCookies: 2,
         cookies: 0,
     }
-    const count = () => {
-        state.cookies += state.productCookies
-    }
+
     cookie.addEventListener('click', () => {
         state.cookies += 1;
         result.innerHTML = state.cookies
@@ -23,19 +23,24 @@ const startGame = (() => {
 
 
     setInterval(() => {
-       count()
+        state.cookies = count(state.cookies,state.productCookies)
+        console.log(state.cookies)
         result.innerHTML = state.cookies
     }, 1000)
 
-    container.querySelectorAll('li').forEach((item) => {
+    container.querySelectorAll('.manufacturer').forEach((item) => {
         item.addEventListener('click', (e) => {
             setSum(e.target)
+
+
         })
     })
-    const setSum = (element) => {
-        //  console.log(element.getAttribute('data-manufa'))
+    const setSum = (e) => {
+        console.log(e.getAttribute('data-manufa'))
         state.productCookies += 1
-        console.log(state.productCookies)
+       //   console.log(state.productCookies)
+
+
     }
 
 })()

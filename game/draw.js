@@ -1,16 +1,22 @@
-
 class Draw {
-    draw(manufacturers,container) {
+    draw(manufacturers, container) {
 
-        let tpl = `<ul>`;
+        let tpl = `<div>`;
         manufacturers.forEach((item) => {
             tpl += `
-          <li data-manufa="${item.id}">${item.name}</li>
+          <div data-manufa="${item.id}" class="manufacturer">
+                <img data-manufa="${item.id}"  class="mimg" src=${item.img}>
+                <div>${item.name}</div>
+                <div>${item.price}</div>
+                <div>${item.quantityCookies}</div>
+                <div>${item.sum}</div>
+          
+          </div>
           `
 
         })
 
-        tpl += `</ul>`;
+        tpl += `</div>`;
 
         container.insertAdjacentHTML('afterbegin', tpl)
     }

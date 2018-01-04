@@ -31,11 +31,11 @@ const Manufacturers = (() => {
     }
 
     const nF = new CreateManufacturer()
-    nF.create(1,"Kursor", 15, '', 0.1,0)
-    nF.create(2,"Babcia", 100, '', 1,0)
-    nF.create(3,"Farma", 1100, '', 8,0)
-    nF.create(4,"Kopalnia", 1200, '', 47,0)
-    nF.create(5,"Fabryka", 13000, '', 260,0)
+    nF.create(1,"Kursor", 15, './img/Kursor.png', 0.1,0)
+    nF.create(2,"Babcia", 100, './img/Grandma.png', 1,0)
+    nF.create(3,"Farma", 1100, './img/Farm.png', 8,0)
+    nF.create(4,"Kopalnia", 1200, './img/Mine.png', 47,0)
+    nF.create(5,"Fabryka", 13000, './img/factory.png', 260,0)
 
 
     return list
