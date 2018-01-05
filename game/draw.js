@@ -4,12 +4,12 @@ class Draw {
         let tpl = `<div>`;
         manufacturers.forEach((item) => {
             tpl += `
-          <div data-manufa="${item.id}" class="manufacturer">
-                <img data-manufa="${item.id}"  class="mimg" src=${item.img}>
+          <div data-manufacturer="${item.id}" class="manufacturer">
+                <img class="mimg" src=${item.img}>
                 <div>${item.name}</div>
                 <div>${item.price}</div>
                 <div>${item.quantityCookies}</div>
-                <div>${item.sum}</div>
+                <div class="owned">${item.sum}</div>
           
           </div>
           `

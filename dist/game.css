@@ -90,3 +90,21 @@ body{
     font-size: 30px;
     color: white;
 }
+
+.manufacturer{
+    width:350px;
+    height: 70px;
+    background: brown;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+
+}
+.mimg{
+    width:40px;
+    height: 40px;
+}

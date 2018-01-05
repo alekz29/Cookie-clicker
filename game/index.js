@@ -1,15 +1,14 @@
 import manufacturers from './manufacturers'
 import Draw from './draw'
-import count from './count'
-
+import Count from './count'
 
 
 const startGame = (() => {
     const result = document.querySelector(".result")
     const cookie = document.querySelector(".cookie-ground__big-cookie")
     const container = document.querySelector('.manufacturers')
-    const d = new Draw()
-    d.draw(manufacturers, container)
+    const dr = new Draw()
+    dr.draw(manufacturers, container)
 
     const state = {
         productCookies: 2,
@@ -23,8 +22,7 @@ const startGame = (() => {
 
 
     setInterval(() => {
-        state.cookies = count(state.cookies,state.productCookies)
-        console.log(state.cookies)
+        state.cookies = Count.countCookies(state.cookies, state.productCookies)
         result.innerHTML = state.cookies
     }, 1000)
 
@@ -33,14 +31,31 @@ const startGame = (() => {
             setSum(e.target)
 
 
+
+
         })
     })
     const setSum = (e) => {
-        console.log(e.getAttribute('data-manufa'))
-        state.productCookies += 1
-       //   console.log(state.productCookies)
+        const idManufacturer = parseInt(e.getAttribute('data-manufacturer'),10)
 
+        const manufacturer = manufacturers.find(manufacturers => [manufacturers.id]
+            .some(id => id === idManufacturer))
+
+        e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
+                <div>${manufacturer.name}</div>
+                <div>${manufacturer.price * 2}</div>
+                <div>${manufacturer.quantityCookies}</div>
+                <div class="owned">${manufacturer.sum}</div>`
+
+
+        const owned = e.querySelector('.owned')
+        console.log(owned)
 
     }
+
+
+
+
+
 
 })()

@@ -1,6 +1,12 @@
+const Count = (() => {
 
-const count = (a,b)=>a+=b
+    const countCookies = (a, b) => a += b
 
 
+    return {
+        countCookies
+    }
+})()
 
-export default count
+
+export default Count
