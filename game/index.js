@@ -31,31 +31,36 @@ const startGame = (() => {
             setSum(e.target)
 
 
-
-
         })
     })
     const setSum = (e) => {
-        const idManufacturer = parseInt(e.getAttribute('data-manufacturer'),10)
-
+        const idManufacturer = parseInt(e.getAttribute('data-manufacturer'), 10)
         const manufacturer = manufacturers.find(manufacturers => [manufacturers.id]
             .some(id => id === idManufacturer))
+        const owned = parseInt(e.querySelector('.owned').innerHTML, 10)
+
+        const sumOwned = manufacturer.sum += 1
+        const price = manufacturer.price
+        const quanityCookies = manufacturer.quantityCookies
+        const produces = Count.decimal(quanityCookies*sumOwned)
+
+        console.log(manufacturer.quantityCookies)
+        console.log(sumOwned)
+        console.log(price)
+        console.log(produces)
+
 
         e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
                 <div>${manufacturer.name}</div>
                 <div>${manufacturer.price * 2}</div>
-                <div>${manufacturer.quantityCookies}</div>
-                <div class="owned">${manufacturer.sum}</div>`
+                <div>${quanityCookies}</div>
+                <div class="owned">${sumOwned}</div>`
 
 
-        const owned = e.querySelector('.owned')
-        console.log(owned)
+        // console.log(sumOwned)
+        // console.log(manufacturer)
 
     }
-
-
-
-
 
 
 })()
