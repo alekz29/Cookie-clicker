@@ -9,17 +9,12 @@ const Count = (() => {
     }
     const countCookies = (...a) => {
         let sum = sumUp(a)
-        Array.isArray(sum)? sum = sumUp(sum): null
+        Array.isArray(sum) ? sum = sumUp(sum) : null
         return sum
     }
 
     const producesForSec = (mLP) => {
-        const v = mLP.map(item => item.produces)
-        const x = countCookies(v)
-
-        //   console.log(v)
-        //   console.log(x)
-
+        return countCookies(mLP.map(item => item.produces))
     }
 
     return {

@@ -11,7 +11,7 @@ const startGame = (() => {
     dr.draw(manufacturers, container)
 
     const state = {
-        productCookies: 1,
+        productCookies: 0,
         cookies: 0,
     }
 
@@ -22,7 +22,7 @@ const startGame = (() => {
 
 
     setInterval(() => {
-        state.cookies = Count.countCookies(state.cookies, state.productCookies)
+        state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookies))
         result.innerHTML = state.cookies
     }, 1000)
 
@@ -49,14 +49,7 @@ const startGame = (() => {
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
 
-
-
-        const x = Count.producesForSec(manufacturers)
-
-
-        //  console.log(listProductCookies)
-
-
+        state.productCookies = Count.producesForSec(manufacturers)
     }
 
 
