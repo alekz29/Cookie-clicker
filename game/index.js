@@ -11,7 +11,7 @@ const startGame = (() => {
     dr.draw(manufacturers, container)
 
     const state = {
-        productCookies: 2,
+        productCookies: 1,
         cookies: 0,
     }
 
@@ -37,28 +37,25 @@ const startGame = (() => {
         const idManufacturer = parseInt(e.getAttribute('data-manufacturer'), 10)
         const manufacturer = manufacturers.find(manufacturers => [manufacturers.id]
             .some(id => id === idManufacturer))
-        const owned = parseInt(e.querySelector('.owned').innerHTML, 10)
-
-        const sumOwned = manufacturer.sum += 1
-        const price = manufacturer.price
-        const quanityCookies = manufacturer.quantityCookies
-        const produces = Count.decimal(quanityCookies*sumOwned)
-
-        console.log(manufacturer.quantityCookies)
-        console.log(sumOwned)
-        console.log(price)
-        console.log(produces)
+        const owned = manufacturer.owned += 1
+        const price = manufacturer.price * owned + manufacturer.price
+        const basisProduction = manufacturer.basisProduction
+        const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
 
 
         e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
                 <div>${manufacturer.name}</div>
-                <div>${manufacturer.price * 2}</div>
-                <div>${quanityCookies}</div>
-                <div class="owned">${sumOwned}</div>`
+                <div>${price}</div>
+                <div>${produces}</div>
+                <div class="owned">${owned}</div>`
 
 
-        // console.log(sumOwned)
-        // console.log(manufacturer)
+
+        const x = Count.producesForSec(manufacturers)
+
+
+        //  console.log(listProductCookies)
+
 
     }
 
