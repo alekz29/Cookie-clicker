@@ -12,7 +12,8 @@ const startGame = (() => {
 
     const state = {
         productCookies: 0,
-        cookies: 0,
+        productCookiesforSec: 1,
+        cookies: 3000,
     }
 
     cookie.addEventListener('click', () => {
@@ -21,10 +22,11 @@ const startGame = (() => {
     })
 
 
-    setInterval(() => {
-        state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookies))
+    const timerGame = setInterval((a,b) => {
+        state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
         result.innerHTML = state.cookies
-    }, 1000)
+    },1000)
+
 
     container.querySelectorAll('.manufacturer').forEach((item) => {
         item.addEventListener('click', (e) => {
@@ -37,19 +39,38 @@ const startGame = (() => {
         const idManufacturer = parseInt(e.getAttribute('data-manufacturer'), 10)
         const manufacturer = manufacturers.find(manufacturers => [manufacturers.id]
             .some(id => id === idManufacturer))
-        const owned = manufacturer.owned += 1
-        const price = manufacturer.price * owned + manufacturer.price
         const basisProduction = manufacturer.basisProduction
-        const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
+        let owned = manufacturer.owned
+        let price = manufacturer.price
 
 
-        e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
+        if (state.cookies >= price) {
+            clearInterval(timerGame)
+       //     console.log(timerGame)
+            const i = setInterval(function(){console.log("a")},1000)
+           const x = (i) =>{
+                const bla = i-1
+                console.log(i)
+               console.log(bla)
+               clearInterval(bla)
+            }
+            x(i)
+            owned = manufacturer.owned += 1
+            price = manufacturer.price * owned
+            state.cookies = Count.subtract(state.cookies, price)
+            price = manufacturer.price * owned + manufacturer.price
+
+            const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
+            e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
                 <div>${manufacturer.name}</div>
                 <div>${price}</div>
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
+            state.productCookies = Count.producesForSec(manufacturers)
 
-        state.productCookies = Count.producesForSec(manufacturers)
+
+        }
+
     }
 
 

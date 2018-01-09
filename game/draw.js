@@ -1,6 +1,5 @@
 class Draw {
     draw(manufacturers, container) {
-        const start = 0
         let tpl = `<div>`;
         manufacturers.forEach((item) => {
             tpl += `
@@ -8,7 +7,7 @@ class Draw {
                 <img class="mimg" src=${item.img}>
                 <div>${item.name}</div>
                 <div>${item.price}</div>
-                <div>${start}</div>
+                <div>${item.produces}</div>
                 <div class="owned">${item.owned}</div>
           
           </div>

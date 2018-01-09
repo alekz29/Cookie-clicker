@@ -16,11 +16,16 @@ const Count = (() => {
     const producesForSec = (mLP) => {
         return countCookies(mLP.map(item => item.produces))
     }
+    const subtract = (a, b) => {
+        return a - b
+    }
 
     return {
         countCookies,
         decimal,
-        producesForSec
+        producesForSec,
+        sumUp,
+        subtract
     }
 })()
 
