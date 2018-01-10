@@ -20,7 +20,9 @@ const Manufacturers = (() => {
 
     function CreateManufacturer() {
         this.create = (id, name, basicPrice, img, basisProduction, owned, produces,price) => {
+
             const nO = new CreateObject();
+
             nO.id = id;
             nO.name = name;
             nO.basicPrice = basicPrice;
