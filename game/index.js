@@ -13,19 +13,13 @@ const startGame = (() => {
     const state = {
         productCookies: 0,
         productCookiesforSec: 1,
-        cookies: 3000,
+        cookies: 15,
     }
 
     cookie.addEventListener('click', () => {
         state.cookies += 1;
         result.innerHTML = state.cookies
     })
-
-
-    const timerGame = setInterval((a,b) => {
-        state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
-        result.innerHTML = state.cookies
-    },1000)
 
 
     container.querySelectorAll('.manufacturer').forEach((item) => {
@@ -41,24 +35,16 @@ const startGame = (() => {
             .some(id => id === idManufacturer))
         const basisProduction = manufacturer.basisProduction
         let owned = manufacturer.owned
-        let price = manufacturer.price
+        let price = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
+        let basicPrice = manufacturer.basicPrice
 
 
         if (state.cookies >= price) {
-            clearInterval(timerGame)
-       //     console.log(timerGame)
-            const i = setInterval(function(){console.log("a")},1000)
-           const x = (i) =>{
-                const bla = i-1
-                console.log(i)
-               console.log(bla)
-               clearInterval(bla)
-            }
-            x(i)
             owned = manufacturer.owned += 1
-            price = manufacturer.price * owned
-            state.cookies = Count.subtract(state.cookies, price)
-            price = manufacturer.price * owned + manufacturer.price
+            state.cookies = Count.decimal(Count.subtract(state.cookies, price))
+            result.innerHTML = state.cookies
+
+            manufacturer.price = price += basicPrice
 
             const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
             e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
@@ -67,7 +53,23 @@ const startGame = (() => {
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
             state.productCookies = Count.producesForSec(manufacturers)
+            //   state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
+            //    result.innerHTML = state.cookies
 
+            //   console.log(price+'from last')
+            //    console.log(  state.cookies +'from last cookies')
+            /*  const refreshCookies = setInterval(() => {
+                  state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
+                  result.innerHTML = state.cookies
+              },1000/state.productCookies)
+              const clearLastInterval = (a,b,c) =>{
+                  const previous = Count.subtract(a,1)
+                  clearInterval(previous)
+              }
+              clearLastInterval(refreshCookies)
+
+  */
+            console.log(manufacturer)
 
         }
 
