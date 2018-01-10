@@ -13,7 +13,7 @@ const startGame = (() => {
     const state = {
         productCookies: 0,
         productCookiesforSec: 1,
-        cookies: 15,
+        cookies: 400,
     }
 
     cookie.addEventListener('click', () => {
@@ -43,7 +43,6 @@ const startGame = (() => {
             owned = manufacturer.owned += 1
             state.cookies = Count.decimal(Count.subtract(state.cookies, price))
             result.innerHTML = state.cookies
-
             manufacturer.price = price += basicPrice
 
             const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
@@ -53,22 +52,24 @@ const startGame = (() => {
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
             state.productCookies = Count.producesForSec(manufacturers)
-            //   state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
-            //    result.innerHTML = state.cookies
 
-            //   console.log(price+'from last')
-            //    console.log(  state.cookies +'from last cookies')
-            /*  const refreshCookies = setInterval(() => {
-                  state.cookies = Count.decimal(Count.countCookies(state.cookies, state.productCookiesforSec))
-                  result.innerHTML = state.cookies
-              },1000/state.productCookies)
-              const clearLastInterval = (a,b,c) =>{
-                  const previous = Count.subtract(a,1)
-                  clearInterval(previous)
-              }
-              clearLastInterval(refreshCookies)
 
-  */
+            const speedInterval = state.productCookies < 1 ? 1000 * state.productCookies : 1000 / state.productCookies
+            const productionCookiesInterval = state.productCookies < 1 ? state.productCookies  * state.productCookies :state.productCookiesforSec
+
+            const refreshCookies = setInterval(() => {
+                state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInterval))
+                result.innerHTML = state.cookies
+                console.log(productionCookiesInterval)
+            }, speedInterval)
+
+            const clearLastInterval = (a) => {
+                const previous = Count.subtract(a, 1)
+                clearInterval(previous)
+            }
+            clearLastInterval(refreshCookies)
+
+
             console.log(manufacturer)
 
         }
