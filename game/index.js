@@ -2,17 +2,15 @@ import manufacturers from './manufacturers'
 import Draw from './draw'
 import Count from './count'
 
-
 const startGame = (() => {
     const result = document.querySelector(".result")
     const cookie = document.querySelector(".cookie-ground__big-cookie")
     const container = document.querySelector('.manufacturers')
-    const dr = new Draw()
-    dr.draw(manufacturers, container)
+    const drawManufacturers = new Draw()
+    drawManufacturers.draw(manufacturers, container)
 
     const state = {
         productCookies: 0,
-        productCookiesforSec: 1,
         cookies: 4000,
     }
 
@@ -24,8 +22,8 @@ const startGame = (() => {
 
     container.querySelectorAll('.manufacturer').forEach((item) => {
         item.addEventListener('click', (e) => {
-            setSum(e.target)
 
+            setSum(e.target)
 
         })
     })
@@ -51,29 +49,28 @@ const startGame = (() => {
                 <div>${price}</div>
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
-            state.productCookies = Count.producesForSec(manufacturers)
+           const productCookies= state.productCookies = Count.producesForSec(manufacturers)
 
 
-            const speedInterval = state.productCookies < 1 ? 1000 * Math.pow(state.productCookies*10,-1) : 1000 / state.productCookies
-            const productionCookiesInterval = state.productCookies < 1 ? 0.1  : state.productCookiesforSec
-
-            console.log(Math.pow(state.productCookies*10,-1))
 
 
+
+
+
+
+            const speedInterval =  productCookies < 1 ? 1000 * Math.pow(productCookies*10,-1) : 1000 / state.productCookies
+            const productionCookiesInTime = productCookies < 1 ? 0.1  : 1
             const refreshCookies = setInterval(() => {
-                state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInterval))
+                state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInTime))
                 result.innerHTML = state.cookies
-                console.log(productionCookiesInterval)
             }, speedInterval)
 
-            const clearLastInterval = (a) => {
+            const clearPreviousInterval = (a) => {
                 const previous = Count.subtract(a, 1)
                 clearInterval(previous)
             }
-            clearLastInterval(refreshCookies)
+            clearPreviousInterval(refreshCookies)
 
-
-           // console.log(manufacturer)
 
         }
 
