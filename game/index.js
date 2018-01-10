@@ -13,7 +13,7 @@ const startGame = (() => {
     const state = {
         productCookies: 0,
         productCookiesforSec: 1,
-        cookies: 400,
+        cookies: 4000,
     }
 
     cookie.addEventListener('click', () => {
@@ -54,8 +54,11 @@ const startGame = (() => {
             state.productCookies = Count.producesForSec(manufacturers)
 
 
-            const speedInterval = state.productCookies < 1 ? 1000 * state.productCookies : 1000 / state.productCookies
-            const productionCookiesInterval = state.productCookies < 1 ? state.productCookies  * state.productCookies :state.productCookiesforSec
+            const speedInterval = state.productCookies < 1 ? 1000 * Math.pow(state.productCookies*10,-1) : 1000 / state.productCookies
+            const productionCookiesInterval = state.productCookies < 1 ? 0.1  : state.productCookiesforSec
+
+            console.log(Math.pow(state.productCookies*10,-1))
+
 
             const refreshCookies = setInterval(() => {
                 state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInterval))
@@ -70,7 +73,7 @@ const startGame = (() => {
             clearLastInterval(refreshCookies)
 
 
-            console.log(manufacturer)
+           // console.log(manufacturer)
 
         }
 
