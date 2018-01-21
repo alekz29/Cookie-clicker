@@ -1,6 +1,8 @@
 class Draw {
     draw(manufacturers, container) {
-        let tpl = `<div>`;
+
+        let tpl = `<div class="containerM">`;
+
         manufacturers.forEach((item) => {
             tpl += `
           <div data-manufacturer="${item.id}" class="manufacturer">
@@ -12,7 +14,6 @@ class Draw {
           
           </div>
           `
-
         })
 
         tpl += `</div>`;

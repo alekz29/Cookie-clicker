@@ -3,11 +3,13 @@ import Draw from './draw'
 import Count from './count'
 
 const startGame = (() => {
-    const result = document.querySelector(".result")
-    const cookie = document.querySelector(".cookie-ground__big-cookie")
+    const result = document.querySelector(".result-cookies")
+    const cookie = document.querySelector(".big-Cookie")
     const container = document.querySelector('.manufacturers')
+    const perSec = document.querySelector('.result-for-sec')
     const drawManufacturers = new Draw()
     drawManufacturers.draw(manufacturers, container)
+
 
     const state = {
         productCookies: 0,
@@ -15,8 +17,11 @@ const startGame = (() => {
     }
 
     cookie.addEventListener('click', () => {
+
+        cookie.replaceWith(cookie)
         state.cookies += 1;
         result.innerHTML = state.cookies
+
     })
 
 
@@ -49,17 +54,12 @@ const startGame = (() => {
                 <div>${price}</div>
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
-           const productCookies= state.productCookies = Count.producesForSec(manufacturers)
+            const productCookies = state.productCookies = Count.producesForSec(manufacturers)
+            perSec.innerHTML = productCookies + ' per sec.'
 
 
-
-
-
-
-
-
-            const speedInterval =  productCookies < 1 ? 1000 * Math.pow(productCookies*10,-1) : 1000 / state.productCookies
-            const productionCookiesInTime = productCookies < 1 ? 0.1  : 1
+            const speedInterval = productCookies < 1 ? 1000 * Math.pow(productCookies * 10, -1) : 1000 / state.productCookies
+            const productionCookiesInTime = productCookies < 1 ? 0.1 : 1
             const refreshCookies = setInterval(() => {
                 state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInTime))
                 result.innerHTML = state.cookies
@@ -70,7 +70,6 @@ const startGame = (() => {
                 clearInterval(previous)
             }
             clearPreviousInterval(refreshCookies)
-
 
         }
 
