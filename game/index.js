@@ -1,6 +1,10 @@
 import manufacturers from './manufacturers'
 import Draw from './draw'
 import Count from './count'
+import findElement from './findElement'
+import clearPreviousInterval from './clearPreviousInterval'
+
+
 
 const startGame = (() => {
     const result = document.querySelector(".result-cookies")
@@ -8,12 +12,12 @@ const startGame = (() => {
     const container = document.querySelector('.manufacturers')
     const perSec = document.querySelector('.result-for-sec')
     const drawManufacturers = new Draw()
-    drawManufacturers.draw(manufacturers, container)
+    drawManufacturers.drawBegin(manufacturers, container)
 
 
     const state = {
         productCookies: 0,
-        cookies: 4000,
+        cookies: 40000,
     }
 
     cookie.addEventListener('click', () => {
@@ -34,43 +38,28 @@ const startGame = (() => {
     })
     const setSum = (e) => {
         const idManufacturer = parseInt(e.getAttribute('data-manufacturer'), 10)
-        const manufacturer = manufacturers.find(manufacturers => [manufacturers.id]
-            .some(id => id === idManufacturer))
+        const manufacturer = findElement(manufacturers, idManufacturer)
         const basisProduction = manufacturer.basisProduction
-        let owned = manufacturer.owned
         let price = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
-        let basicPrice = manufacturer.basicPrice
+
 
 
         if (state.cookies >= price) {
-            owned = manufacturer.owned += 1
+            const owned = manufacturer.owned += 1
             state.cookies = Count.decimal(Count.subtract(state.cookies, price))
             result.innerHTML = state.cookies
-            manufacturer.price = price += basicPrice
-
+            manufacturer.price = price += manufacturer.basicPrice
             const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
-            e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
-                <div>${manufacturer.name}</div>
-                <div><img class="iconCookie" src='./img/Cookie.png'>${price}</div>
-                <div>${produces}</div>
-                <div class="owned">${owned}</div>`
+            e.innerHTML = `${drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)}`
             const productCookies = state.productCookies = Count.producesForSec(manufacturers)
             perSec.innerHTML = productCookies + ' per sec.'
-
-
             const speedInterval = productCookies < 1 ? 1000 * Math.pow(productCookies * 10, -1) : 1000 / state.productCookies
             const productionCookiesInTime = productCookies < 1 ? 0.1 : 1
             const refreshCookies = setInterval(() => {
                 state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInTime))
                 result.innerHTML = state.cookies
             }, speedInterval)
-
-            const clearPreviousInterval = (a) => {
-                const previous = Count.subtract(a, 1)
-                clearInterval(previous)
-            }
             clearPreviousInterval(refreshCookies)
-
         }
 
     }
