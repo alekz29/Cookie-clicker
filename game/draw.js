@@ -8,7 +8,7 @@ class Draw {
           <div data-manufacturer="${item.id}" class="manufacturer">
                 <img class="mimg" src=${item.img}>
                 <div>${item.name}</div>
-                <div>${item.basicPrice}</div>
+                <div><img class="iconCookie" src='./img/Cookie.png'>${item.basicPrice}</div>
                 <div>${item.produces}</div>
                 <div class="owned">${item.owned}</div>
           

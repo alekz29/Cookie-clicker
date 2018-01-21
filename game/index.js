@@ -51,7 +51,7 @@ const startGame = (() => {
             const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
             e.innerHTML = `<img class="mimg" src=${manufacturer.img}>
                 <div>${manufacturer.name}</div>
-                <div>${price}</div>
+                <div><img class="iconCookie" src='./img/Cookie.png'>${price}</div>
                 <div>${produces}</div>
                 <div class="owned">${owned}</div>`
             const productCookies = state.productCookies = Count.producesForSec(manufacturers)
