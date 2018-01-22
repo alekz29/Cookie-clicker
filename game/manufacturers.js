@@ -1,4 +1,4 @@
-const Manufacturers = (() => {
+const manufacturers = (() => {
 
     const list = [];
 
@@ -48,5 +48,5 @@ const Manufacturers = (() => {
 
 })()
 
-export default Manufacturers
+export default manufacturers
 

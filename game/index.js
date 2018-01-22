@@ -1,6 +1,6 @@
 import manufacturers from './manufacturers'
 import Draw from './draw'
-import Count from './count'
+import count from './count'
 import findElement from './findElement'
 import clearPreviousInterval from './clearPreviousInterval'
 
@@ -17,7 +17,7 @@ const startGame = (() => {
 
     const state = {
         productCookies: 0,
-        cookies: 40000,
+        cookies: 4000000,
     }
 
     cookie.addEventListener('click', () => {
@@ -46,17 +46,17 @@ const startGame = (() => {
 
         if (state.cookies >= price) {
             const owned = manufacturer.owned += 1
-            state.cookies = Count.decimal(Count.subtract(state.cookies, price))
+            state.cookies = count.decimal(count.subtract(state.cookies, price))
             result.innerHTML = state.cookies
             manufacturer.price = price += manufacturer.basicPrice
-            const produces = manufacturer.produces = Count.decimal(basisProduction * owned)
+            const produces = manufacturer.produces = count.decimal(basisProduction * owned)
             e.innerHTML = `${drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)}`
-            const productCookies = state.productCookies = Count.producesForSec(manufacturers)
+            const productCookies = state.productCookies = count.producesForSec(manufacturers)
             perSec.innerHTML = productCookies + ' per sec.'
             const speedInterval = productCookies < 1 ? 1000 * Math.pow(productCookies * 10, -1) : 1000 / state.productCookies
             const productionCookiesInTime = productCookies < 1 ? 0.1 : 1
             const refreshCookies = setInterval(() => {
-                state.cookies = Count.decimal(Count.countCookies(state.cookies, productionCookiesInTime))
+                state.cookies = count.decimal(count.sumUp(state.cookies, productionCookiesInTime))
                 result.innerHTML = state.cookies
             }, speedInterval)
             clearPreviousInterval(refreshCookies)

@@ -1,8 +1,8 @@
-import Count from "./count";
+import count from "./count";
 
 const clearPreviousInterval = (previous) => {
-    clearInterval(Count.subtract(previous, 1))
+    clearInterval(count.subtract(previous, 1))
 }
 
 
-export default clearPreviousInterval()
+export default clearPreviousInterval

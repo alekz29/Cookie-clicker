@@ -1,33 +1,29 @@
-const Count = (() => {
+const count = (() => {
     const decimal = (a) => {
         const factor = Math.pow(10, 3);
         a = Math.round(Math.round(a * factor) / 10);
         return a / (factor / 10);
     }
-    const sumUp = (a) => {
-        return a.reduce((a, b) => a + b)
-    }
-    const countCookies = (...a) => {
-        let sum = sumUp(a)
-        Array.isArray(sum) ? sum = sumUp(sum) : null
+    const sumUp = (...a) => {
+        let sum = a.reduce((a, b) => a + b)
+        Array.isArray(sum) ? sum = sum.reduce((a, b) => a + b) : null
         return sum
     }
 
     const producesForSec = (mLP) => {
-        return countCookies(mLP.map(item => item.produces))
+        return sumUp(mLP.map(item => item.produces))
     }
     const subtract = (a, b) => {
         return a - b
     }
 
     return {
-        countCookies,
+        sumUp,
         decimal,
         producesForSec,
-        sumUp,
         subtract
     }
 })()
 
 
-export default Count
+export default count
