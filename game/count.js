@@ -1,6 +1,6 @@
 const count = (() => {
-    const decimal = (a) => {
-        const factor = Math.pow(10, 3);
+    const decimal = (a,pow=1) => {
+        const factor = Math.pow(10, pow);
         a = Math.round(Math.round(a * factor) / 10);
         return a / (factor / 10);
     }

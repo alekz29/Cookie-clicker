@@ -3,7 +3,7 @@ import Draw from './draw'
 import count from './count'
 import findElement from './findElement'
 import clearPreviousInterval from './clearPreviousInterval'
-
+import cookiesPs from './cookiesPS'
 
 
 const startGame = (() => {
@@ -43,22 +43,45 @@ const startGame = (() => {
         let price = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
 
 
-
         if (state.cookies >= price) {
             const owned = manufacturer.owned += 1
             state.cookies = count.decimal(count.subtract(state.cookies, price))
             result.innerHTML = state.cookies
             manufacturer.price = price += manufacturer.basicPrice
-            const produces = manufacturer.produces = count.decimal(basisProduction * owned)
+            const produces = manufacturer.produces = count.decimal(basisProduction * owned, 3)
             e.innerHTML = `${drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)}`
             const productCookies = state.productCookies = count.producesForSec(manufacturers)
+
+
             perSec.innerHTML = productCookies + ' per sec.'
-            const speedInterval = productCookies < 1 ? 1000 * Math.pow(productCookies * 10, -1) : 1000 / state.productCookies
-            const productionCookiesInTime = productCookies < 1 ? 0.1 : 1
+            const speedInterval = () => {
+                if (productCookies < 1) {
+                    return 1000 * Math.pow(productCookies, -1)
+                }
+                else if (productCookies <= 1) {
+                    return 1000 / productCookies
+                }
+                else if (productCookies >= 100) {
+                    return 10
+                }
+            }
+
+
+            const cookiesInTime = () => {
+
+                if (productCookies < 100) {
+                    return 1
+                }
+                else if (productCookies >= 100) {
+                    return productCookies / 100
+                }
+
+            }
+
             const refreshCookies = setInterval(() => {
-                state.cookies = count.decimal(count.sumUp(state.cookies, productionCookiesInTime))
+                state.cookies += count.decimal(cookiesInTime())
                 result.innerHTML = state.cookies
-            }, speedInterval)
+            }, speedInterval())
             clearPreviousInterval(refreshCookies)
         }
 
