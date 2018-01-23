@@ -3,7 +3,7 @@ import Draw from './draw'
 import count from './count'
 import findElement from './findElement'
 import clearPreviousInterval from './clearPreviousInterval'
-import cookiesPs from './cookiesPS'
+import production from './production'
 
 
 const startGame = (() => {
@@ -54,34 +54,12 @@ const startGame = (() => {
 
 
             perSec.innerHTML = productCookies + ' per sec.'
-            const speedInterval = () => {
-                if (productCookies < 1) {
-                    return 1000 * Math.pow(productCookies, -1)
-                }
-                else if (productCookies <= 1) {
-                    return 1000 / productCookies
-                }
-                else if (productCookies >= 100) {
-                    return 10
-                }
-            }
 
-
-            const cookiesInTime = () => {
-
-                if (productCookies < 100) {
-                    return 1
-                }
-                else if (productCookies >= 100) {
-                    return productCookies / 100
-                }
-
-            }
 
             const refreshCookies = setInterval(() => {
-                state.cookies += count.decimal(cookiesInTime())
+                state.cookies += count.decimal(production.cookiesInTime(productCookies))
                 result.innerHTML = state.cookies
-            }, speedInterval())
+            }, production.speedInterval(productCookies))
             clearPreviousInterval(refreshCookies)
         }
 
