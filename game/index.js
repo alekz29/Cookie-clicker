@@ -1,9 +1,10 @@
 import manufacturers from './manufacturers'
 import Draw from './draw'
 import count from './count'
-import findElement from './findElement'
-import clearPreviousInterval from './clearPreviousInterval'
+import findElement from './element'
+import clearPreviousInterval from './previousInterval'
 import production from './production'
+import active from './active'
 
 
 const startGame = (() => {
@@ -17,7 +18,7 @@ const startGame = (() => {
 
     const state = {
         productCookies: 0,
-        cookies: 4000000,
+        cookies: 0,
     }
 
     cookie.addEventListener('click', () => {
@@ -25,7 +26,7 @@ const startGame = (() => {
         cookie.replaceWith(cookie)
         state.cookies += 1;
         result.innerHTML = state.cookies
-
+        active(state.cookies)
     })
 
 
@@ -37,19 +38,20 @@ const startGame = (() => {
         })
     })
     const setSum = (e) => {
-        const idManufacturer = parseInt(e.getAttribute('data-manufacturer'), 10)
+        const idManufacturer = parseInt((e.getAttribute('id').match(/\d/g)[0]), 10)
         const manufacturer = findElement(manufacturers, idManufacturer)
         const basisProduction = manufacturer.basisProduction
         let price = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
 
 
         if (state.cookies >= price) {
+
             const owned = manufacturer.owned += 1
             state.cookies = count.decimal(count.subtract(state.cookies, price))
             result.innerHTML = state.cookies
             manufacturer.price = price += manufacturer.basicPrice
             const produces = manufacturer.produces = count.decimal(basisProduction * owned, 3)
-            e.innerHTML = `${drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)}`
+            e.innerHTML = drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)
             const productCookies = state.productCookies = count.producesForSec(manufacturers)
 
 
@@ -57,10 +59,14 @@ const startGame = (() => {
 
 
             const refreshCookies = setInterval(() => {
-                state.cookies += count.decimal(production.cookiesInTime(productCookies))
-                result.innerHTML = state.cookies
+                active(state.cookies)
+                state.cookies = count.wealth(state.cookies, result, productCookies)
+
+
             }, production.speedInterval(productCookies))
             clearPreviousInterval(refreshCookies)
+            active(state.cookies)
+
         }
 
     }

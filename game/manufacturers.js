@@ -12,14 +12,14 @@ const manufacturers = (() => {
                 basisProduction: this.basisProduction,
                 owned: this.owned,
                 produces: this.produces,
-                price:this.price
+                price: this.price
 
             }
         }
     }
 
     function CreateManufacturer() {
-        this.create = (id, name, basicPrice, img, basisProduction, owned=0, produces=0,price=0) => {
+        this.create = (id, name, basicPrice, img, basisProduction, owned = 0, produces = 0, price = 0) => {
 
             const nO = new CreateObject();
 
@@ -30,18 +30,18 @@ const manufacturers = (() => {
             nO.basisProduction = basisProduction;
             nO.owned = owned;
             nO.produces = produces;
-            nO.price=price
+            nO.price = price;
 
             list.push(nO.createObject())
         }
     }
 
     const nF = new CreateManufacturer()
-    nF.create(1, "Kursor", 15, './img/Kursor.png', 0.1)
-    nF.create(2, "Babcia", 100, './img/Grandma.png', 1)
-    nF.create(3, "Farma", 1100, './img/Farm.png', 8)
-    nF.create(4, "Kopalnia", 1200, './img/Mine.png', 47)
-    nF.create(5, "Fabryka", 13000, './img/factory.png', 260)
+    nF.create(0, "Kursor", 15, './img/Kursor.png', 0.1)
+    nF.create(1, "Babcia", 100, './img/Grandma.png', 1)
+    nF.create(2, "Farma", 1100, './img/Farm.png', 8)
+    nF.create(3, "Kopalnia", 1200, './img/Mine.png', 47)
+    nF.create(4, "Fabryka", 13000, './img/factory.png', 260)
 
 
     return list

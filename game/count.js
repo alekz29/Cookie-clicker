@@ -1,3 +1,5 @@
+import production from "./production";
+
 const count = (() => {
     const decimal = (a,pow=1) => {
         const factor = Math.pow(10, pow);
@@ -16,12 +18,19 @@ const count = (() => {
     const subtract = (a, b) => {
         return a - b
     }
+    const wealth = (state,result,productCookies) => {
+        state += count.decimal(production.cookiesInTime(productCookies))
+        result.innerHTML = state
+        return state
+    }
+
 
     return {
         sumUp,
         decimal,
         producesForSec,
-        subtract
+        subtract,
+        wealth
     }
 })()
 

@@ -16,7 +16,7 @@ class Draw {
 
         manufacturers.forEach((item) => {
             tpl += `
-            <div data-manufacturer="${item.id}" class="manufacturer">
+            <div id="product${item.id}" class="locked manufacturer">
                 ${this.drawNewManufacturers(item.img, item.name, item.basicPrice, item.produces, item.owned)}
             </div>`
 
