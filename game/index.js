@@ -9,7 +9,7 @@ import active from './active'
 
 const startGame = (() => {
     const result = document.querySelector(".result-cookies")
-    const cookie = document.querySelector(".big-Cookie")
+    const bigCookie = document.querySelector(".big-Cookie")
     const container = document.querySelector('.manufacturers')
     const perSec = document.querySelector('.result-for-sec')
     const drawManufacturers = new Draw()
@@ -18,14 +18,14 @@ const startGame = (() => {
 
     const state = {
         productCookies: 0,
-        cookies: 0,
+        cookies: 80,
     }
 
-    cookie.addEventListener('click', () => {
+    bigCookie.addEventListener('click', () => {
 
-        cookie.replaceWith(cookie)
+        bigCookie.replaceWith(bigCookie)
         state.cookies += 1;
-        result.innerHTML = state.cookies
+        result.innerHTML = `${state.cookies}`
         active(state.cookies)
     })
 
@@ -38,34 +38,34 @@ const startGame = (() => {
         })
     })
     const setSum = (e) => {
-        const idManufacturer = parseInt((e.getAttribute('id').match(/\d/g)[0]), 10)
-        const manufacturer = findElement(manufacturers, idManufacturer)
-        const basisProduction = manufacturer.basisProduction
-        let price = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
+        const idManufacturer = parseInt((e.getAttribute('id').match(/\d/g)[0]), 10),
+            manufacturer = findElement(manufacturers, idManufacturer),
+            basisProduction = manufacturer.basisProduction,
+            oldPrice = manufacturer.price === 0 ? manufacturer.basicPrice : manufacturer.price
 
 
-        if (state.cookies >= price) {
+        if (state.cookies >= oldPrice) {
 
-            const owned = manufacturer.owned += 1
-            state.cookies = count.decimal(count.subtract(state.cookies, price))
-            result.innerHTML = state.cookies
-            manufacturer.price = price += manufacturer.basicPrice
-            const produces = manufacturer.produces = count.decimal(basisProduction * owned, 3)
-            e.innerHTML = drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, price, produces, owned)
-            const productCookies = state.productCookies = count.producesForSec(manufacturers)
+            const owned = manufacturer.owned += 1,
+                produces = manufacturer.produces = count.decimal(basisProduction * owned, 3),
+                productCookies = state.productCookies = count.producesForSec(manufacturers),
+                cookies = state.cookies = count.decimal(count.subtract(state.cookies, oldPrice)),
+                newPrice = manufacturer.price = oldPrice + manufacturer.basicPrice
 
-
+            result.innerHTML = `${cookies}`
+            e.innerHTML = drawManufacturers.drawNewManufacturers(manufacturer.img, manufacturer.name, newPrice, produces, owned)
             perSec.innerHTML = productCookies + ' per sec.'
+
+            active(state.cookies)
 
 
             const refreshCookies = setInterval(() => {
-                active(state.cookies)
                 state.cookies = count.wealth(state.cookies, result, productCookies)
-
+                active(state.cookies)
 
             }, production.speedInterval(productCookies))
             clearPreviousInterval(refreshCookies)
-            active(state.cookies)
+
 
         }
 

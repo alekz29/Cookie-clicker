@@ -73,6 +73,7 @@ body {
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.6);
 }
+
 .result {
     display: flex;
     flex-direction: column;
@@ -84,7 +85,8 @@ body {
     border: 3px solid black;
     background: rgba(0, 0, 0, 0.6);
 }
-.result-cookies{
+
+.result-cookies {
     font-size: 30px;
     color: white;
 
@@ -116,7 +118,7 @@ body {
 .big-Cookie.eat-Cookie {
     animation-name: eat;
     animation-duration: 0.2s;
-    transition-duration:  0.2s;
+    transition-duration: 0.2s;
 }
 
 @keyframes eat {
@@ -151,24 +153,23 @@ body {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.6);
 
-
-}
-.containerM{
-  background:url("./img/cookies.jpg");
 }
 
+.containerM {
+    background: url("./img/cookies.jpg");
+}
 
 .manufacturer {
     width: 100%;
     max-width: 400px;
     height: 70px;
-    background-color: rgba(138,149,151, 0.80);
+    background-color: rgba(138, 149, 151, 0.80);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     color: white;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     border: 5px solid #46484A;
     border-bottom: 5px solid #36393B;
@@ -176,8 +177,10 @@ body {
     border-radius: 2px;
     position: relative;
     box-sizing: border-box;
+    font-family: 'Merriweather', Georgia, serif;
 }
-.manufacturer:after{
+
+.manufacturer:after {
     content: '';
     display: block;
     position: absolute;
@@ -189,26 +192,80 @@ body {
 
 .manufacturer:hover {
     border: 5px solid #626669;
-    border-bottom: 5px solid rgba(138,149,151,1);
-    border-top: 5px solid rgba(138,149,151,1) ;
+    border-bottom: 5px solid rgba(138, 149, 151, 1);
+    border-top: 5px solid rgba(138, 149, 151, 1);
     box-shadow: inset 0 0 1em #6A6D70;
 }
-.manufacturer:active{
+
+.manufacturer:active {
     border: 5px solid #46484A;
     border-bottom: 5px solid #36393B;
     border-top: 5px solid #56595C;
-    box-shadow:none;
+    box-shadow: none;
 }
 
-.mimg {
+.mHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mImg {
     width: 60px;
     height: 100%;
 }
-.iconCookie{
+
+.iconCookie {
     height: 15px;
     width: 15px;
 }
 
-.locked{
-    background-color:black
+.price {
+    color: #08C928;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    text-shadow: 1px 1px 5px black;
+
+}
+
+.owned {
+    color: rgba(138, 149, 151, 0.5);
+    font-size: 50px;
+    text-shadow: 1px 1px 5px black;
+    margin-right: 5%;
+    padding-bottom: 10px;
+}
+
+.locked .price {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.locked:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+.locked:active {
+    border: 5px solid #626669;
+    border-bottom: 5px solid rgba(138, 149, 151, 1);
+    border-top: 5px solid rgba(138, 149, 151, 1);
+    box-shadow: inset 0 0 1em #6A6D70;
+}
+
+.excluded .mName {
+
+}
+
+.excluded .mImg {
+
 }

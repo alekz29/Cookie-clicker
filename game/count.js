@@ -19,9 +19,9 @@ const count = (() => {
         return a - b
     }
     const wealth = (state,result,productCookies) => {
-        state += count.decimal(production.cookiesInTime(productCookies))
-        result.innerHTML = state
-        return state
+        const newState = state + count.decimal(production.cookiesInTime(productCookies))
+        result.innerHTML = newState
+        return newState
     }
 
 

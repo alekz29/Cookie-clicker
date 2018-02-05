@@ -2,10 +2,12 @@ class Draw {
 
 
     drawNewManufacturers(img, name, price, produces, owned) {
-        return `<img class="mimg" src=${img}>
-                <div>${name}</div>
-                <div><img class="iconCookie" src='./img/Cookie.png'>${price}</div>
-                <div>${produces}</div>
+        return `<img class="mImg" src=${img}>
+                <div class="mHeader">
+                    <div class="mName">${name}</div>
+                    <div class="price"><img class="iconCookie" src='./img/Cookie.png'>${price}</div>
+                </div>
+                <div class="produces">${produces}</div>
                 <div class="owned">${owned}</div>`
 
     }
@@ -16,8 +18,8 @@ class Draw {
 
         manufacturers.forEach((item) => {
             tpl += `
-            <div id="product${item.id}" class="locked manufacturer">
-                ${this.drawNewManufacturers(item.img, item.name, item.basicPrice, item.produces, item.owned)}
+            <div id="product${item.id}" class="excluded locked manufacturer">
+                ${this.drawNewManufacturers(item.img, '???', item.basicPrice, item.produces, item.owned)}
             </div>`
 
         })
